@@ -194,10 +194,12 @@ int insertNode(headNode *h, int key)
                 node->link = n; // 그 위치 앞에 삽입
                 back->link = node;
             }
+            return 0; // 그리고 바로 끝내 준다.
         }
-        back->link = n; // back이 뒤를 가리키게 하고,
-        n = n->link;    // n은 한 노드 나아감.
+        back = n;    // back이 뒤를 가리키게 하고,
+        n = n->link; // n은 한 노드 나아감.
     }
+    back->link = node; // 다 끝나도 성립하는 것이 없을 경우, 맨 마지막에 삽입함.
     return 0;
 }
 
