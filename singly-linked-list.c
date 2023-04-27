@@ -323,9 +323,9 @@ int invertList(headNode *h)
         return 0;
     }
 
-    listNode *n = h->first;    // 리스트를 1개씩 이동하기 위해 필요한 변수이다.
-    listNode *back = h->first; // 리스트에서 링크의 방향을 변경시키기 위해 가리킬 노드를 가리킨다.
-    listNode *turn = h->first; // 링크의 방향을 변경시키는 노드를 가리킨다.
+    listNode *n = h->first; // 리스트를 1개씩 이동하기 위해 필요한 변수이다.
+    listNode *back = NULL;  // 리스트에서 링크의 방향을 변경시키기 위해 가리킬 노드를 가리킨다.
+    listNode *turn = NULL;  // 링크의 방향을 변경시키는 노드를 가리킨다.
 
     if (n->link == NULL) // 리스트의 원소가 1개뿐인지 확인한다.
     {                    // 원소가 하나뿐이면, 역순은 무의미하다.
