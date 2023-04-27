@@ -259,6 +259,28 @@ int deleteNode(headNode *h, int key)
         printf("\nlist is blank.\n");
         return 0;
     }
+    listNode *n = h->first;    // 리스트를 움직이며 key와 같은지 판단한다.
+    listNode *back = h->first; // 삭제할 노드의 앞 노드의 link를 변경시켜 리스트에서 제외되게 한다.
+    while (n != NULL)
+    {
+        if (n->key == key) // 삭제할 원소를 찾았으면,
+        {
+            if (h->first == n) // 맨 앞의 원소가 삭제할 원소이면,
+            {
+                h->first = n->link; // h->first를 n의 다음 노드로 한다.
+            }
+            else // 맨 앞이 아니면,
+            {
+                back->link = n->link; // n 뒤의 노드가 n이 가리키는 노드를 가리킨다.
+            }
+            free(n);  // 리스트에서 벗어난 n을 제거한다.
+            return 0; // 함수를 끝낸다.
+        }
+        back = n;    // back은 n의 뒤의 노드를 가리킨다.
+        n = n->link; // n을 앞으로 이동한다.
+    }
+    // 다 끝나도 함수가 종료되지 않았으면,
+    printf("There is no %d.\n", key);
     return 0;
 }
 
@@ -267,7 +289,26 @@ int deleteNode(headNode *h, int key)
  */
 int deleteLast(headNode *h)
 {
-
+    if (h->first == NULL) // 리스트가 비어있는지 판별한다.
+    {
+        printf("\nlist is blank.\n");
+        return 0;
+    }
+    listNode *n = h->first;
+    listNode *back = h->first;
+    if (n->link == NULL) // 리스트의 노드가 1개뿐이면(맨 앞의 원소를 제거하면),
+    {
+        h->first = NULL; // 리스트를 비워주고,
+        free(n);         // 제거된 n은 할당 해제한다.
+        return 0;
+    }
+    while (n->link != NULL) // 노드가 2개 이상이면,
+    {
+        back = n; // back과 n을 한씩 이동해준다.
+        n = n->link;
+    }
+    back->link = NULL; // back은 이제 마지막 노드를 가리키므로 link = NULL이어야 하고,
+    free(n);           // n은 제거되었으므로 할당 해제한다.
     return 0;
 }
 
