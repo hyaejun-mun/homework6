@@ -317,6 +317,31 @@ int deleteLast(headNode *h)
  */
 int invertList(headNode *h)
 {
+    if (h->first == NULL) // 리스트가 비어있는지 판별한다.
+    {
+        printf("\nlist is blank.\n");
+        return 0;
+    }
+
+    listNode *n = h->first;    // 리스트를 1개씩 이동하기 위해 필요한 변수이다.
+    listNode *back = h->first; // 리스트에서 링크의 방향을 변경시키기 위해 가리킬 노드를 가리킨다.
+    listNode *turn = h->first; // 링크의 방향을 변경시키는 노드를 가리킨다.
+
+    if (n->link == NULL) // 리스트의 원소가 1개뿐인지 확인한다.
+    {                    // 원소가 하나뿐이면, 역순은 무의미하다.
+        printf("\nThere is only one Node.\n");
+        return 0;
+    }
+    while (n != NULL)      // 원소 끝까지 반복한다.
+    {                      // 기본적으로, back->t번째,
+                           //            turn->t+1번째,
+                           //            n->t+2번째 순으로 노드를 가리키고 있다.
+        back = turn;       // back이 가리키는 노드를 한 칸 이동시킨다.
+        turn = n;          // turn이 가리키는 노드도 1칸 이동시킨다.
+        n = n->link;       // n이 가리키는 노드도 1칸 이동시킨다.
+        turn->link = back; // turn이 가리키는 노드를 back으로 한다.
+    }
+    h->first = turn; // 다 끝나면, 시작 노드를 마지막 노드(다 끝난 뒤의 trun 노드)로 한다.
 
     return 0;
 }
